@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "STUDENTS")
 @Getter
@@ -31,4 +33,10 @@ public class Student {
     @JoinColumn(name = "BIRTH_CITY_ID")
     @ManyToOne
     private City birthCity;
+
+    @ManyToMany
+    @JoinTable(name = "STUDENTS_COUNTRIES",
+            joinColumns = @JoinColumn(name = "STUDENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "COUNTRY_ID"))
+    private List<Country> visitedCountries;
 }

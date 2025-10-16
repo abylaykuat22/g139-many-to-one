@@ -1,8 +1,10 @@
 package kz.bitlab.g139manytoone.controller;
 
 import kz.bitlab.g139manytoone.entity.City;
+import kz.bitlab.g139manytoone.entity.Country;
 import kz.bitlab.g139manytoone.entity.Student;
 import kz.bitlab.g139manytoone.service.CityService;
+import kz.bitlab.g139manytoone.service.CountryService;
 import kz.bitlab.g139manytoone.service.StudentService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class HomeController {
 
     private final StudentService studentService;
     private final CityService cityService;
+    private final CountryService countryService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -42,6 +46,20 @@ public class HomeController {
         model.addAttribute("student", student);
         List<City> cities = cityService.getCities();
         model.addAttribute("cities", cities);
+        List<Country> notVisitedCountries = countryService.getNotVisitedCountries(student);
+        model.addAttribute("notVisitedCountries", notVisitedCountries);
         return "student-details";
+    }
+
+    @PostMapping("/students/countries/add")
+    public String addCountry(@RequestParam Long studentId, @RequestParam Long countryId) {
+        studentService.addCountry(studentId, countryId);
+        return "redirect:/students/" + studentId;
+    }
+
+    @PostMapping("/students/countries/delete")
+    public String deleteCountry(@RequestParam Long studentId, @RequestParam Long countryId) {
+        studentService.deleteCountry(studentId, countryId);
+        return "redirect:/students/" + studentId;
     }
 }
