@@ -56,4 +56,16 @@ public class StudentService {
         student.getVisitedCountries().remove(country);
         studentRepository.save(student);
     }
+
+    public List<Student> getStudentsByAge(Long age) {
+        return studentRepository.findByAge(age);
+    }
+
+    public List<Student> getStudentsByAgeAndFirstName(Long age, String firstName) {
+        return studentRepository.findByAgeAndFirstNameIgnoreCase(age, firstName);
+    }
+
+    public List<Student> search(Long age, String firstName, Long cityId) {
+        return studentRepository.findStudents(age, firstName, cityId);
+    }
 }

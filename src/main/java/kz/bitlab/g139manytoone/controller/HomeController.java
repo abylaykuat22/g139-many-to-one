@@ -62,4 +62,14 @@ public class HomeController {
         studentService.deleteCountry(studentId, countryId);
         return "redirect:/students/" + studentId;
     }
+
+    @GetMapping("/students/search")
+    public String search(@RequestParam Long age, @RequestParam String firstName, @RequestParam Long cityId, Model model) {
+        List<Student> students = studentService.search(age, firstName, cityId);
+        List<City> cities = cityService.getCities();
+        model.addAttribute("students", students);
+        model.addAttribute("cities", cities);
+        return "home";
+    }
+
 }
