@@ -6,7 +6,6 @@ import kz.bitlab.g139manytoone.entity.Student;
 import kz.bitlab.g139manytoone.service.CityService;
 import kz.bitlab.g139manytoone.service.CountryService;
 import kz.bitlab.g139manytoone.service.StudentService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
